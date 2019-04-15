@@ -7,6 +7,8 @@ package sample;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -26,11 +28,12 @@ import java.time.temporal.ChronoUnit;
 import java.util.Random;
 
 public class Main extends Application {
+
     private boolean passFlag = true;
     private boolean emailFlag = true;
     private TableView<patients>patientsTableView;
     private final Alert alert = new Alert(Alert.AlertType.ERROR);
-    private static double date = (Math.random()*((1000000)+1))+0;
+    private static double date = (Math.random()*((1000)+1))+0;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -93,6 +96,9 @@ public class Main extends Application {
         final TextField PatientName = new TextField();
         PatientName.setPromptText("Patiant name");
 
+        final TextField PatientId = new TextField();
+        PatientId.setPromptText("Patiant ID");
+
         final GridPane gride1 = new GridPane();
         gride1.setVgap(20);
         gride1.setHgap(10);
@@ -100,11 +106,14 @@ public class Main extends Application {
         gride1.setPadding(new Insets(5, 5, 5, 5));
         gride1.add(new Label("Patient name"), 0, 0);
         gride1.add(PatientName, 1, 0);
-        gride1.add(Showme, 2, 0);
+        gride1.add(new Label("Patient ID"), 0, 1);
+        gride1.add(PatientId, 1, 1);
 
-        gride1.add(ShowmeAll, 1, 1);
+        gride1.add(Showme, 2, 1);
 
-        gride1.add(newPatient, 1, 2);
+        gride1.add(ShowmeAll, 1, 2);
+
+        gride1.add(newPatient, 1, 3);
 
         final Pane pane1 = new Pane(imageView2);
         pane1.getChildren().add(gride1);
@@ -175,6 +184,10 @@ public class Main extends Application {
         imageView1.setX(0);
         imageView1.setY(0);
 
+        ObservableList<String> options = FXCollections.observableArrayList("Option 1", "Option 2", "Option 3");
+        final ComboBox comboBox = new ComboBox(options);
+        comboBox.setValue("Option 1");
+
         final DatePicker checkInDatePicker = new DatePicker();
         checkInDatePicker.setValue(LocalDate.now());
 
@@ -201,7 +214,16 @@ public class Main extends Application {
 
         final Label PatientLabel = new Label();
         PatientLabel.setText(PatientName.getText());
+
         final Label availableSlots = new Label("available Slots");
+        availableSlots.setStyle("-fx-font-weight: bold");
+
+        final Label Morning = new Label("Morning Slots");
+        Morning.setStyle("-fx-font-weight: bold");
+
+        final Label Night = new Label("Night Slots");
+        Night.setStyle("-fx-font-weight: bold");
+
 
         final Button done = new Button("Done");
         done.setStyle("-fx-text-fill: black;-fx-cursor: hand;");
@@ -211,15 +233,59 @@ public class Main extends Application {
 
         final RadioButton rb1 = new RadioButton("8:30AM");
         rb1.setToggleGroup(group);
-        rb1.setUserData("8:30");
+        rb1.setUserData("8:30AM");
 
         final RadioButton rb2 = new RadioButton("9AM");
         rb2.setToggleGroup(group);
-        rb2.setUserData("9");
+        rb2.setUserData("9:00AM");
 
         final RadioButton rb3 = new RadioButton("9:30AM");
         rb3.setToggleGroup(group);
-        rb3.setUserData("9:30");
+        rb3.setUserData("9:30AM");
+
+        final RadioButton rb4 = new RadioButton("10:00AM");
+        rb4.setToggleGroup(group);
+        rb4.setUserData("10:00AM");
+
+        final RadioButton rb5 = new RadioButton("10:30AM");
+        rb5.setToggleGroup(group);
+        rb5.setUserData("10:30AM");
+
+        final RadioButton rb6 = new RadioButton("11:00AM");
+        rb6.setToggleGroup(group);
+        rb6.setUserData("11:00AM");
+
+        final RadioButton rb7 = new RadioButton("11:30AM");
+        rb7.setToggleGroup(group);
+        rb7.setUserData("11:30AM");
+
+        final RadioButton rb8 = new RadioButton("4:00PM");
+        rb8.setToggleGroup(group);
+        rb8.setUserData("4:00PM");
+
+        final RadioButton rb9 = new RadioButton("4:30PM");
+        rb9.setToggleGroup(group);
+        rb9.setUserData("4:30PM");
+
+        final RadioButton rb10 = new RadioButton("5:00PM");
+        rb10.setToggleGroup(group);
+        rb10.setUserData("5:00PM");
+
+        final RadioButton rb11 = new RadioButton("5:30PM");
+        rb11.setToggleGroup(group);
+        rb11.setUserData("5:30PM");
+
+        final RadioButton rb12 = new RadioButton("6:00PM");
+        rb12.setToggleGroup(group);
+        rb12.setUserData("6:30PM");
+
+        final RadioButton rb13 = new RadioButton("7:00PM");
+        rb13.setToggleGroup(group);
+        rb13.setUserData("7:00PM");
+
+        final RadioButton rb14 = new RadioButton("7:30PM");
+        rb14.setToggleGroup(group);
+        rb14.setUserData("7:30PM");
 
         group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
             public void changed(ObservableValue<? extends Toggle> ov,
@@ -236,11 +302,27 @@ public class Main extends Application {
         gride3.add(PatientLabel, 0, 0);
         gride3.add(availableSlots, 0, 1);
 
-        gride3.add(rb1, 0, 2);
-        gride3.add(rb2, 0, 3);
-        gride3.add(rb3, 0, 4);
-        gride3.add(checkInDatePicker, 0, 5);
-        gride3.add(done, 1, 6);
+        gride3.add (Morning,0,2);
+        gride3.add (rb1, 0, 3);
+        gride3.add (rb2, 0, 4);
+        gride3.add (rb3, 0, 5);
+        gride3.add (rb4, 2, 3);
+        gride3.add (rb5, 2, 4);
+        gride3.add (rb6, 2, 5);
+        gride3.add (rb7, 0, 6);
+        gride3.add (Night,0,7);
+        gride3.add (rb8, 0, 8);
+        gride3.add (rb9, 0, 9);
+        gride3.add(rb10, 0, 10);
+        gride3.add(rb11, 2, 8);
+        gride3.add(rb12, 2, 9);
+        gride3.add(rb13, 2, 10);
+        gride3.add(rb14, 0, 11);
+
+
+        gride3.add(checkInDatePicker, 0, 13);
+        gride3.add(comboBox, 0, 15);
+        gride3.add(done, 1, 16);
 
         final Pane pane3 = new Pane(imageView4);
         pane3.getChildren().add(gride3);
@@ -253,6 +335,7 @@ public class Main extends Application {
          nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
          nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
+
         final TableColumn<patients, String> idColumn = new TableColumn<>("ID");
         idColumn.setMinWidth(200);
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -261,8 +344,16 @@ public class Main extends Application {
         mobileColumn.setMinWidth(200);
         mobileColumn.setCellValueFactory(new PropertyValueFactory<>("mobile"));
 
+        final TableColumn<patients, String> dateColumn = new TableColumn<>("Date");
+        dateColumn.setMinWidth(200);
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+
+        final TableColumn<patients, String> timeColumn = new TableColumn<>("Time");
+        timeColumn.setMinWidth(200);
+        timeColumn.setCellValueFactory(new PropertyValueFactory<>("time"));
+
         patientsTableView = new TableView<>();
-        patientsTableView.getColumns().addAll(nameColumn, idColumn, mobileColumn);
+        patientsTableView.getColumns().addAll(nameColumn, idColumn, mobileColumn, dateColumn, timeColumn);
 
         final Button back = new Button("Back");
         back.setStyle("-fx-cursor: hand;");
@@ -319,7 +410,7 @@ public class Main extends Application {
         Showme.setOnAction(event -> {
             if (!PatientName.getText().equals("")) {
                 try {
-                    if (connection.checkData("select fname from patients where fname = '"+PatientName.getText()+"'")) {
+                    if (connection.checkData("select fname from patients where fname = '"+PatientName.getText()+"'&&id = '"+PatientId.getText()+"'")) {
                         PatientLabel.setText(PatientName.getText());
                         primaryStage.setScene(scene3);
                     }
@@ -334,7 +425,8 @@ public class Main extends Application {
 
         done.setOnAction(event -> {
             System.out.println(checkInDatePicker.getValue());
-            connection.updateData("UPDATE patients SET date = '"+checkInDatePicker.getValue()+"' , time = '"+group.getSelectedToggle().getUserData().toString()+"' WHERE fname = '"+PatientLabel.getText()+"'");
+            System.out.println(comboBox.getValue());
+            connection.updateData("UPDATE patients SET date = '"+checkInDatePicker.getValue()+"' , time = '"+group.getSelectedToggle().getUserData().toString()+"' WHERE fname = '"+PatientLabel.getText()+"'&&id = '"+PatientId.getText()+"'");
             primaryStage.setScene(scene1);
         });
 
@@ -432,7 +524,6 @@ public class Main extends Application {
                 patientsTableView.setPrefWidth(width);
                 delete.setLayoutX(((double)newValue-50));
             }});
-
     }
 
     public static void main(String[] args) {

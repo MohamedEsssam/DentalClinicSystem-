@@ -93,7 +93,9 @@ public class DB_Connection {
                 String id      =  resultSet.getString("id");
                 String mobile  = resultSet.getString("mobile");
                 String address = resultSet.getString("address");
-                patientss.add(new patients(fname+" "+lname,id,mobile,address));
+                String date  = resultSet.getString("date");
+                String time = resultSet.getString("time");
+                patientss.add(new patients(fname+" "+lname,id,mobile,address,date,time));
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -113,7 +115,9 @@ public class DB_Connection {
         }
     }
 
-    public  void updatePatient(){
+    public  void updatePatient(TableView tableView,TableColumn.CellEditEvent<patients,String>updatePatientCell){
+        patients patients = (sample.patients) tableView.getSelectionModel().getSelectedItem();
+        //patients.setName(updatePatientCell.getNewValue());
 
+      }
     }
-}
